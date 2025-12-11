@@ -20,7 +20,7 @@ router = APIRouter(
 )
 
 ALLOWED_TABLES = ['against', 'by']
-ALLOWED_GROUP_COLS = ["ComplaintType", "State", "Decision", "c_aff_resolved", "a_aff_resolved"]
+ALLOWED_GROUP_COLS = ["res_res_ComplaintType", "State", "Decision", "c_aff_resolved", "a_aff_resolved"]
 
 # Load India GeoJSON once
 # Assuming india_states.geojson is in the parent directory of routers (i.e., api_dev)
@@ -233,7 +233,7 @@ def stacked_histogram(
     table: str = Query(..., description="Table name: 'against' or 'by'"),
     start_year: int = None,
     end_year: int = None,
-    column: str = "ComplaintType"
+    column: str = "res_ComplaintType"
 ):
     if table not in ALLOWED_TABLES:
         raise HTTPException(status_code=400, detail="Invalid table name")
@@ -289,14 +289,14 @@ def stacked_histogram(
     return Response(content=img_bytes.getvalue(), media_type="image/png")
 
 @router.get("/cdf_lineplot")
-def cdf_lineplot(table: str = Query(...), start_year: int = None, end_year: int = None, column: str = "ComplaintType"):
+def cdf_lineplot(table: str = Query(...), start_year: int = None, end_year: int = None, column: str = "res_ComplaintType"):
     if table not in ALLOWED_TABLES:
         raise HTTPException(status_code=400, detail="Invalid table name")
         
     if not column.isidentifier():
          raise HTTPException(status_code=400, detail="Invalid column name")
 
-    # Fetch ReportName (year) and ComplaintType
+    # Fetch ReportName (year) and res_ComplaintType
     query = f"SELECT ReportName, {column} FROM {table} WHERE ReportName IS NOT NULL AND {column} IS NOT NULL"
     params = {}
     if start_year and end_year:
@@ -350,7 +350,7 @@ def freq_lineplot(
     table: str = Query(...),
     start_year: int = None,
     end_year: int = None,
-    column: str = "ComplaintType"
+    column: str = "res_ComplaintType"
 ):
     if table not in ALLOWED_TABLES:
         raise HTTPException(status_code=400, detail="Invalid table name")
@@ -358,7 +358,7 @@ def freq_lineplot(
     if not column.isidentifier():
          raise HTTPException(status_code=400, detail="Invalid column name")
 
-    # Fetch ReportName (year) and ComplaintType (or other column)
+    # Fetch ReportName (year) and res_ComplaintType (or other column)
     query = f"SELECT ReportName, {column} FROM {table} WHERE ReportName IS NOT NULL AND {column} IS NOT NULL"
     params = {}
     if start_year and end_year:
@@ -411,7 +411,7 @@ def freq_lineplot(
 def visualize_press(
     table: str = Query(...),
     chart_type: str = Query(..., regex="^(bar|bubble|wordcloud|line)$"),
-    group_col: str = Query("ComplaintType"),
+    group_col: str = Query("res_ComplaintType"),
     top_k: int = Query(10, ge=1, le=50)
 ):
     # if group_col not in ALLOWED_GROUP_COLS:

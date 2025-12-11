@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 ALLOWED_TABLES = ['against', 'by']
-ALLOWED_GROUP_COLS = ["ComplaintType", "State", "level"] # Updated to match schema if needed, checking main.py it was res_ComplaintType but let's stick to what's likely in DB or alias it.
+ALLOWED_GROUP_COLS = ["res_ComplaintType", "State", "level"] # Updated to match schema if needed, checking main.py it was res_ComplaintType but let's stick to what's likely in DB or alias it.
 # main.py uses "ComplaintType" as default in visualize_press but checks against ["res_ComplaintType", "State", "level"]
 # Let's assume the column name in DB is what we pass, or we map it.
 # In main.py: query = f"SELECT Press, {group_col}, ReportName FROM {table} WHERE Press IS NOT NULL"
