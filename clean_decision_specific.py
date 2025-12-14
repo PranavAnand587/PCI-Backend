@@ -80,6 +80,9 @@ def clean_decision_specific(value):
     # Step 11: Normalize case - create canonical form
     # We'll use a mapping of normalized (lowercase) to canonical form
     canonical_forms = {
+        'm': 'Other', # Single letter M
+        'lack of substance': 'Closed for Lack of Substance',
+        'lack ofsubstancе': 'Closed for Lack of Substance', # Typo fix
         'dismissed': 'Dismissed',
         'upheld': 'Upheld',
         'directions': 'Directions',

@@ -1,0 +1,22 @@
+================================================================================
+VALIDATING HYPOTHESIS: Role Ambiguity in 'by' and 'against' tables
+================================================================================
+
+--- Analyzing 'by' table (Expectation: Complainant should be Media) ---
+Complainant_Role Accused_Role  Count
+           Media    Non-Media   1587
+       Non-Media    Non-Media     36
+           Media        Media     31
+       Non-Media        Media      1
+
+Potential Swapped Rows in 'by': 1 / 1655 (0.1%)
+
+
+--- Analyzing 'against' table (Expectation: Accused should be Media) ---
+Complainant_Role Accused_Role  Count
+       Non-Media        Media   4608
+           Media        Media    185
+
+Potential Swapped Rows in 'against': 0 / 4793 (0.0%)
+
+================================================================================

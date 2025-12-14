@@ -1,0 +1,49 @@
+================================================================================
+ANALYZING COMPLAINT TYPES vs ROLE CLASSIFICATION
+================================================================================
+
+--- 'by' Table: Complaint Types for 'Non-Media vs Non-Media' cases ---
+(These are the 632 cases where we missed identifying the Journalist)
+
+    ComplaintType_Normalized  Count
+       Harassment of Newsmen    357
+     Facilities to the Press    224
+Curtailment of Press Freedom     35
+                    Suo-Motu      8
+    Violence against Newsmen      7
+ Editor-Manager Relationship      1
+
+
+--- 'by' Table: Complaint Types for 'Swapped' cases (Non-Media vs Media) ---
+(These are the 4 cases where Complainant=Non-Media, Accused=Media)
+
+ComplaintType_Normalized           Complainant                   Against  Count
+ Facilities to the Press Jathedar Harpal Singh      Sh Balbir Singh Beer      1
+ Facilities to the Press             Publisher Shri Suresh Chander Rohra      1
+   Harassment of Newsmen        Ms. Rajeshwari          Shri Prem Sharma      1
+   Harassment of Newsmen  Shri K.P. Mari Kumar            Shri Ramanujam      1
+
+
+========================================
+
+--- 'against' Table: Complaint Types for 'Non-Media vs Non-Media' cases ---
+(These are the 4460 cases where we missed identifying the Media Accused)
+
+                                     ComplaintType_Normalized  Count
+                                    Principles and Defamation   2756
+                                  Principles and Publications   1335
+Communal, Casteist, Anti National and Anti Religious Writings    184
+                                                    Paid News    179
+                                                     Suo-Motu      4
+                                    Misleading Advertisements      2
+
+
+--- 'against' Table: Complaint Types for 'Swapped' cases (Media vs Non-Media) ---
+(These are the 132 cases where Complainant=Media, Accused=Non-Media)
+
+                                     ComplaintType_Normalized  Count
+                                    Principles and Defamation     82
+                                  Principles and Publications     47
+Communal, Casteist, Anti National and Anti Religious Writings      3
+
+================================================================================
