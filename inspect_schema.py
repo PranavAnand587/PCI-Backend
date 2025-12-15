@@ -1,31 +1,32 @@
 import sqlite3
 
-DB_PATH = r"d:\Projects\mphasis\pci_project_all\api_dev\complaints.db"
+DB_PATH = r"d:\Projects\mphasis\pci_project_all\api_dev\complaints copy.db"
 
 def main():
     conn = sqlite3.connect(DB_PATH)
     cursor = conn.cursor()
 
-    print("Normalizing state names...")
+    print("Inspecting database schema...")
 
-    updates = [
-        # against table
-        ("UPDATE against SET State = 'Odisha' WHERE State IN ('Orissa', 'Orrisa')", "against: Orissa/Orrisa → Odisha"),
-        ("UPDATE against SET State = 'Chhattisgarh' WHERE State = 'Chattisgarh'", "against: Chattisgarh → Chhattisgarh"),
+    # Get all table names
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tables = cursor.fetchall()
 
-        # by table
-        ("UPDATE by SET State = 'Odisha' WHERE State IN ('Orissa', 'Orrisa')", "by: Orissa/Orrisa → Odisha"),
-        ("UPDATE by SET State = 'Chhattisgarh' WHERE State = 'Chattisgarh'", "by: Chattisgarh → Chhattisgarh"),
-    ]
+    for table_name_tuple in tables:
+        table_name = table_name_tuple[0]
+        print(f"\nTable: {table_name}")
+        print("--------------------")
 
-    for sql, label in updates:
-        cursor.execute(sql)
-        print(f"{label} | rows affected: {cursor.rowcount}")
+        # Get column information for each table
+        cursor.execute(f"PRAGMA table_info({table_name});")
+        columns = cursor.fetchall()
 
-    conn.commit()
+        for col in columns:
+            cid, name, ctype, notnull, dflt_value, pk = col
+            print(f"  Column ID: {cid}, Name: {name}, Type: {ctype}, Not Null: {bool(notnull)}, Default Value: {dflt_value}, Primary Key: {bool(pk)}")
+
     conn.close()
-
-    print("Done.")
+    print("\nSchema inspection complete.")
 
 if __name__ == "__main__":
     main()
